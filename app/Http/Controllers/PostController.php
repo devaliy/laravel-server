@@ -42,7 +42,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-         $fields = $request->validate([
+        $fields = $request->validate([
             'title' => 'required|max:255',
             'body'  => 'required'
         ]);
@@ -55,6 +55,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return ['message' => "Post delete successfully"];
     }
 }
