@@ -34,8 +34,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
-        //new testing
+        return ['post', $post];
     }
 
     /**
