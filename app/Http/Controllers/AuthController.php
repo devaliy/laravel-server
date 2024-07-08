@@ -23,7 +23,23 @@ class AuthController extends Controller
     }
 
     public function login(Request $request){
-       
+        $field = $request->validate([
+            'email' => 'required|email|exists:users',
+            'password' => 'required'
+        ]);
+        $user = User::where('email', $request->email)->first();
+
+        if(!$user || !Hash::check($rquest->password, $user->password)){
+            return [
+                'message' => 'The provided credentials are incorrect.'
+            ];
+        }
+         $token = $user->createToken($user->name);
+
+        return [
+            'user'=> $user,
+            'token' => $token->plainTextToken
+        ];
     }
 
     public function logout(Request $request){
